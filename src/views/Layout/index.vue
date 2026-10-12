@@ -8,8 +8,10 @@ import {
   SettingsOutline,
   RefreshOutline,
   PersonOutline,
-  LaptopSharp
+  LaptopSharp,
+  ReturnUpBackOutline
 } from '@vicons/ionicons5'
+
 
 const route = useRoute()
 const router = useRouter()
@@ -18,17 +20,17 @@ const courseStore = useCourseStore()
 const pageTitle = computed(() => route.meta.title || '学习通')
 
 const navItems = [
-  { name: 'home', icon: HomeOutline, label: '首页' },
+  // { name: 'home', icon: HomeOutline, label: '首页' },
   { name: 'courses', icon: BookOutline, label: '课程' },
-  { name: 'profile', icon: PersonOutline, label: '我的' },
+  // { name: 'profile', icon: PersonOutline, label: '我的' },
   { name: 'CDP', icon: LaptopSharp, label: 'CDP' },
   { name: 'settings', icon: SettingsOutline, label: '设置' },
 ]
 
 /* ---------------- 弧形菜单参数 ---------------- */
-const RADIUS = 120          // 距 FAB 圆心距离
-const START_ANGLE = -80     // 起始角：正上方略偏右
-const ANGLE_STEP = 28       // 每项逆时针偏转角度
+const RADIUS = 100          // 距 FAB 圆心距离
+const START_ANGLE = -90     // 起始角：正上方略偏右
+const ANGLE_STEP = 47       // 每项逆时针偏转角度
 
 const isOpen = ref(false)
 
@@ -54,8 +56,7 @@ function goTo(item) {
 }
 
 function handleRefresh() {
-  courseStore.loadCourses(true)
-  Snackbar.success('已刷新')
+  // courseStore.loadCourses(true)
 }
 
 /* 路由变化时自动收起菜单 */
@@ -80,11 +81,18 @@ function isActive(name) { return route.name === name }
         <h1 class="app-bar__title">{{ pageTitle }}</h1>
         <div>正在刷课（当前课程：{{ courseStore.currentTitle }} 可切换UDP页面查看）</div>
       </div>
-      <n-button text round @click="handleRefresh">
-        <template #icon>
-          <n-icon :component="RefreshOutline" :size="20" />
-        </template>
-      </n-button>
+      <div class="btns">
+        <n-button text round @click="() => router.back()">
+          <template #icon>
+            <n-icon :component="ReturnUpBackOutline" :size="20" />
+          </template>
+        </n-button>
+        <n-button text round @click="handleRefresh">
+          <template #icon>
+            <n-icon :component="RefreshOutline" :size="20" />
+          </template>
+        </n-button>
+      </div>
     </header>
 
     <!-- 页面内容 -->
@@ -130,7 +138,10 @@ function isActive(name) { return route.name === name }
   min-height: 100dvh;
   background: $surface-container-low;
 }
-
+.btns {
+  display: flex;
+  gap: 12px;
+}
 /* ---------- App Bar ---------- */
 .app-bar {
   position: sticky;

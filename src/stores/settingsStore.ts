@@ -102,7 +102,8 @@ export const useSettingsStore = defineStore('settings', () => {
 
   /* ---------------- 恢复默认 ---------------- */
   function reset() {
-    settings.value = deepClone(DEFAULT_SETTINGS)
+    // settings.value = deepClone(DEFAULT_SETTINGS)
+    settings.value = null
   }
 
   /* ---------------- 导出 JSON ---------------- */

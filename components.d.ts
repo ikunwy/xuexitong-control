@@ -12,10 +12,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     GlobalLoading: typeof import('./src/components/globalLoading.vue')['default']
+    LoadingUpdate: typeof import('./src/components/loadingUpdate.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCollapse: typeof import('naive-ui')['NCollapse']
     NCollapseItem: typeof import('naive-ui')['NCollapseItem']
     NDivider: typeof import('naive-ui')['NDivider']
+    NEmpty: typeof import('naive-ui')['NEmpty']
     NIcon: typeof import('naive-ui')['NIcon']
     NStep: typeof import('naive-ui')['NStep']
     NSteps: typeof import('naive-ui')['NSteps']

@@ -10,7 +10,7 @@ const request = axios.create({
 request.interceptors.request.use(
   (config: any) => {
     if (!config?.silent) {
-      useLoadingStore().start();
+      useLoadingStore().start && useLoadingStore().start();
     }
     //   const userStore = useUserStore()
     //   if (userStore.token) {
@@ -19,7 +19,7 @@ request.interceptors.request.use(
     return config;
   },
   (err) => {
-    useLoadingStore().stop();
+    useLoadingStore().stop && useLoadingStore().stop();
     return Promise.reject(err);
   },
 );
@@ -30,7 +30,7 @@ request.interceptors.response.use(
     if (!ok) {
       return Promise.reject(new Error(message || "请求失败"));
     }
-    useLoadingStore().stop();
+    useLoadingStore().stop && useLoadingStore().stop();
     return res.data;
   },
   (err) => {
@@ -40,7 +40,7 @@ request.interceptors.response.use(
       // router.push('/login')
     }
     if (!err.config?.silent) {
-      useLoadingStore().stop()
+      useLoadingStore().stop && useLoadingStore().stop();
     }
     return Promise.reject(err);
   },

@@ -17,7 +17,7 @@ async function handleLogin() {
   try {
     await userStore.login(nickname.value.trim())
     message.success('登录成功')
-    router.replace({ name: 'home' })
+    router.replace({ name: 'courses' })
   } finally {
     loading.value = false
   }
