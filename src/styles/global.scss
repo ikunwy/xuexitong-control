@@ -1,0 +1,26 @@
+// src/styles/global.scss
+@use './variables.scss' as *;
+
+// 输出 :root CSS 变量（只在此处调用一次）
+:root {
+  @include export-css-variables(m3);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #app { height: 100%; margin: 0; padding: 0; }
+
+body {
+  font-family: $m3-font-family;
+  background: $surface-container-low;
+  color: $on-surface;
+  font-size: $font-body;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+::-webkit-scrollbar { width: 0; height: 0; }
+
+.page-enter-active, .page-leave-active { transition: opacity .18s ease, transform .18s ease; }
+.page-enter-from { opacity: 0; transform: translateY(8px); }
+.page-leave-to   { opacity: 0; transform: translateY(-4px); }

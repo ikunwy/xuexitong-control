@@ -1,0 +1,153 @@
+// src/styles/tokens.scss
+@use 'sass:map';
+
+// ============================================================
+// M3 色板（原始数据，唯一数据源）
+// ============================================================
+$m3-palette: (
+  primary:              #0b57d0,
+  primary-light:        #4a7fe8,
+  primary-pressed:      #0a4bb8,
+  primary-container:    #f2f7ff,
+  on-primary:           #ffffff,
+  on-primary-container: #041e49,
+
+  surface:              #fcfcfc,
+  surface-low:          #f7f5fb,
+  surface-container:    #f1eff6,
+  surface-high:         #ebe9f0,
+  on-surface:           #1b1b1f,
+  on-surface-variant:   #44464f,
+
+  outline:              #74777f,
+  outline-variant:      #c4c6d0,
+
+  success:              #146c2e,
+  success-container:    #c4eed0,
+  warning:              #7a5900,
+  warning-container:    #ffdf9e,
+  error:                #ba1a1a,
+  error-container:      #ffdad6
+);
+
+$m3-shape: (
+  xs:   4px,
+  sm:   8px,
+  md:   12px,
+  lg:   16px,
+  xl:   24px,
+  full: 999px
+);
+
+$m3-space: (
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  8: 32px
+);
+
+$m3-font-family:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', sans-serif;
+
+// ============================================================
+// 从 map 派生 SCSS 变量（供组件 @use 后直接使用）
+// ============================================================
+$primary:               map.get($m3-palette, primary);
+$primary-light:         map.get($m3-palette, primary-light);
+$primary-pressed:       map.get($m3-palette, primary-pressed);
+$primary-container:     map.get($m3-palette, primary-container);
+$on-primary:            map.get($m3-palette, on-primary);
+$on-primary-container:  map.get($m3-palette, on-primary-container);
+
+$surface:               map.get($m3-palette, surface);
+$surface-container-low: map.get($m3-palette, surface-low);
+$surface-container:     map.get($m3-palette, surface-container);
+$surface-container-high:map.get($m3-palette, surface-high);
+$on-surface:            map.get($m3-palette, on-surface);
+$on-surface-variant:    map.get($m3-palette, on-surface-variant);
+
+$outline:               map.get($m3-palette, outline);
+$outline-variant:       map.get($m3-palette, outline-variant);
+
+$success:               map.get($m3-palette, success);
+$warning:               map.get($m3-palette, warning);
+$error:                 map.get($m3-palette, error);
+
+$radius-xs:   map.get($m3-shape, xs);
+$radius-sm:   map.get($m3-shape, sm);
+$radius-md:   map.get($m3-shape, md);
+$radius-lg:   map.get($m3-shape, lg);
+$radius-xl:   map.get($m3-shape, xl);
+$radius-full: map.get($m3-shape, full);
+
+$space-1: map.get($m3-space, 1);
+$space-2: map.get($m3-space, 2);
+$space-3: map.get($m3-space, 3);
+$space-4: map.get($m3-space, 4);
+$space-5: map.get($m3-space, 5);
+$space-6: map.get($m3-space, 6);
+$space-8: map.get($m3-space, 8);
+
+// 字号 / 阴影 / 布局（不参与主题切换，直接写死）
+$font-display:  32px;
+$font-headline: 24px;
+$font-title:    18px;
+$font-body:     15px;
+$font-label:    13px;
+
+$shadow-1: 0 1px 2px rgba(0, 0, 0, .06), 0 1px 3px rgba(0, 0, 0, .04);
+$shadow-2: 0 2px 6px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+$shadow-3: 0 6px 16px rgba(0, 0, 0, .10), 0 2px 6px rgba(0, 0, 0, .05);
+
+$header-height: 56px;
+$tabbar-height: 64px;
+
+// ============================================================
+// Mixins
+// ============================================================
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// ============================================================
+// 导出 CSS 变量到 :root
+// 只能在 global.scss 里调用一次，避免重复输出
+// ============================================================
+@mixin export-css-variables($prefix: m3) {
+  @each $name, $value in $m3-palette {
+    --#{$prefix}-#{$name}: #{$value};
+  }
+  @each $name, $value in $m3-shape {
+    --#{$prefix}-radius-#{$name}: #{$value};
+  }
+  @each $name, $value in $m3-space {
+    --#{$prefix}-space-#{$name}: #{$value};
+  }
+  --#{$prefix}-font-family: #{$m3-font-family};
+}
